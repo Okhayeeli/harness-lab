@@ -1,0 +1,38 @@
+# Per-machine target state — should NOT travel between machines.
+# One pattern per line; no inline comments (git treats them as part of the pattern).
+
+# Container's persistent volume — may hold secrets, bulky
+.gitea-data/
+
+# 66MB source checkout — re-clone with `just setup-src`
+.gitea-src/
+
+# Session event log — each machine gets its own
+telemetry/ledger.jsonl
+
+# Scan baselines + diffs are per-machine
+scans/results/
+
+# SQLite oracle DB — rebuilt in <1s from source via `python3 oracles/routes/build.py`
+oracles/routes/routes.db
+
+# Raw GitHub API response — re-fetchable via `just gh-record`
+evidence/gh_*.json
+
+# Raw probe bodies — re-fetchable
+evidence/probe_*/
+
+# Raw thread evidence bodies (keep the .md writeups, drop the big HTML dumps)
+threads/**/*.body.html
+
+# Local overrides
+.env
+.env.local
+.direnv/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+*.swp

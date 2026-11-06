@@ -1,0 +1,12 @@
+# semgrep rule — inventory shell-exec call sites in the target's Go source.
+# Workshop p.45-49: don't ask a model to imitate a parser. A match is not
+# attacker control, reachability, or impact. It's an inventory entry.
+rules:
+  - id: go-exec-command
+    message: exec call site (inventory only; not a vulnerability by itself)
+    severity: INFO
+    languages: [go]
+    patterns:
+      - pattern-either:
+          - pattern: exec.Command($...ARGS)
+          - pattern: exec.CommandContext($CTX, $...ARGS)
